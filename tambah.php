@@ -136,10 +136,12 @@ if(isset($_POST['tambah']))
 
     if ($terupload) {
         $gambar_produk = $namaFile;
+
     } else {
     echo "Upload Gagal!";
     }
-    $queryTambah = mysqli_query($con,"INSERT INTO produk VALUES ('','$nama_produk','$gambar_produk','$harga_produk','$deskripsi_produk','$pemilik')") or die(mysqli_error());
+
+    $queryTambah = mysqli_query($con,"INSERT INTO produk VALUES (0,'$nama_produk','$gambar_produk','$harga_produk','$deskripsi_produk','$pemilik')") or die(mysqli_error($con));
     if($queryTambah)
     {
         echo "<h1 class='text-center'>Berhasil di tambahkan<h1>";

@@ -17,6 +17,9 @@ $query = mysqli_query($con,"SELECT * FROM produk") or die (mysqli_error());
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
+
     <style>
         .bg-black {
             background: #000;
@@ -75,6 +78,16 @@ $query = mysqli_query($con,"SELECT * FROM produk") or die (mysqli_error());
         </div>
     </div>
     <div class="container">
+    <div id='map' style='width: 400px; height: 300px;'></div>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoiZGVkaWNhaHlhMjAwMSIsImEiOiJja2R0M2t3ZzEwMHBwMnJuczFmOGJwOG40In0.d3dUet6Nbdm_mUuSdvz3Ig';
+        var map = new mapboxgl.Map({
+        container: 'map',
+        center : {"lng":107.61538749446106,"lat":-6.886579328312294},
+        style: 'mapbox://styles/mapbox/streets-v11',
+        zoom : 17
+        });
+    </script>
     <div class="row">
             <?php
     if(mysqli_num_rows($query) == 0){
