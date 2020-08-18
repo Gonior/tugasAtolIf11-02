@@ -16,6 +16,8 @@ $query = mysqli_query($con,"SELECT * FROM produk WHERE pemilik = '$author'") or 
     <title>Shop</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
@@ -72,11 +74,20 @@ $query = mysqli_query($con,"SELECT * FROM produk WHERE pemilik = '$author'") or 
     <!-- End Navigasi-->
 <div class="container-fluid">
     <div class="jumbotron jumbotron-fluid">
-        
             <h1 class="display-4">Hallo <?= $_SESSION['user'];?></h1>
             <p class="lead">Web ini masih dalam tahap pengembangan</p>
         </div>
     </div>
+    <div id='map' style='width: 400px; height: 300px;'></div>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoiZGVkaWNhaHlhMjAwMSIsImEiOiJja2R0M2t3ZzEwMHBwMnJuczFmOGJwOG40In0.d3dUet6Nbdm_mUuSdvz3Ig';
+        var map = new mapboxgl.Map({
+        container: 'map',
+        center : {"lng":107.61538749446106,"lat":-6.886579328312294},
+        style: 'mapbox://styles/mapbox/streets-v11',
+        zoom : 17
+        });
+    </script>
     <ul class="nav justify-content-center nav-tabs">
         <li class="nav-item">
             <a class="nav-link active" href="profil.php">List Produk</a>

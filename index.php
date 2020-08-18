@@ -2,8 +2,11 @@
 session_start();
 
 include ('config.php');
-
 $query = mysqli_query($con,"SELECT * FROM produk") or die (mysqli_error());
+$author;
+if(isset($_SESSION['author'])) $author = ($_SESSION['author']);
+else $author = "";
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -71,23 +74,39 @@ $query = mysqli_query($con,"SELECT * FROM produk") or die (mysqli_error());
         </div>
     </nav>
     <!-- End Navigasi-->
-    <div class="jumbotron jumbotron-fluid">
+    <div class="mb-4 jumbotron-fluid text-center jumbotron-image shadow" style="background-image: url(https://images.unsplash.com/photo-1552152974-19b9caf99137?fit=crop&w=1350&q=80); height:50vh; position: relative; display:flex;align-items:center; color:#ffffff">
         <div class="container">
-            <h1>Bootstrap Tutorial</h1>
-            <p>Bootstrap is the most popular HTML, CSS...</p>
+            <h1 class="display-4 mb-4">Selamat datang di Bukaapa.com</h1>
+            <p class="mb-4">Situs jual beli untuk perintis maupun pelaku UKM</p>
+            <p class="mb-4"><a href="#" class="btn btn-primary btn-lg">Mulai belanja</a></p>
         </div>
     </div>
     <div class="container">
-    <div id='map' style='width: 400px; height: 300px;'></div>
-    <script>
-        mapboxgl.accessToken = 'pk.eyJ1IjoiZGVkaWNhaHlhMjAwMSIsImEiOiJja2R0M2t3ZzEwMHBwMnJuczFmOGJwOG40In0.d3dUet6Nbdm_mUuSdvz3Ig';
-        var map = new mapboxgl.Map({
-        container: 'map',
-        center : {"lng":107.61538749446106,"lat":-6.886579328312294},
-        style: 'mapbox://styles/mapbox/streets-v11',
-        zoom : 17
-        });
-    </script>
+    <div class="row">
+    <div class="col-4">
+    <div class="card" style="width: 18rem;">
+                <i class="fa fa-users fa-2x"></i>
+                <div class="card-body">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </div>
+    </div>
+    <div class="col-4">
+    <div class="card" style="width: 18rem;">
+                <i class="fa fa-users fa-2x"></i>
+                <div class="card-body">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </div>
+    </div><div class="col-4">
+    <div class="card" style="width: 18rem;">
+                <i class="fa fa-users fa-2x"></i>
+                <div class="card-body">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </div>
+    </div>  
+    </div>
     <div class="row">
             <?php
     if(mysqli_num_rows($query) == 0){
@@ -120,12 +139,15 @@ $query = mysqli_query($con,"SELECT * FROM produk") or die (mysqli_error());
                     <input type="hidden" name="hidden_gambar" id="gambar_produk<?= $hasil['id_produk'];?>" value="<?= $hasil['gambar_produk']; ?>">
                     <input type="hidden" name="hidden_nama" id="nama_produk<?= $hasil["id_produk"]; ?>" value="<?= $hasil["nama_produk"]; ?>" />  
                     <input type="hidden" name="hidden_harga" id="harga_produk<?= $hasil["id_produk"]; ?>" value="<?= $hasil["harga_produk"]; ?>" />  
-                    <input type="button" name="add_to_cart" id="<?= $hasil["id_produk"]; ?>" style="margin-top:5px;" class="btn btn-warning form-control add_to_cart" value="Add to Cart" /> 
+                    <?php if ($hasil['pemilik'] === $author) :?>
+                        <p>Ini Milik Anda</p>
                         <!-- <a href="#" class="btn btn-warning w-100 add_to_cart" role="button">
                             Tambah ke keranjang
                         </a> -->
-
                     </p>
+                    <?php else : ?>
+                        <input type="button" name="add_to_cart" id="<?= $hasil["id_produk"]; ?>" style="margin-top:5px;" class="btn btn-warning form-control add_to_cart" value="Add to Cart" /> 
+                    <?php endif; ?>
 
                 </div>
             </div>
